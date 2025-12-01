@@ -1,2 +1,2 @@
-# adventofcode_2024
-2024 Advent of Code
+# adventofcode_2025
+2025 Advent of Code

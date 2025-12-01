@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/saundersresearch/adventofcode_2024"
+Homepage = "https://github.com/saundersresearch/adventofcode_2025"
 
 [tool.uv.workspace]
 members = ["code"]
