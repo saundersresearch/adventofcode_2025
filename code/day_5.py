@@ -1,6 +1,6 @@
 from collections import deque
 
-with open('/Users/adamsaunders/Developer/GitHub/adventofcode_2025/code/inputs/day_5.txt') as f:
+with open('inputs/day_5.txt') as f:
     blocks = f.read().strip().split("\n\n")
 
 fresh_ranges = blocks[0].splitlines()
