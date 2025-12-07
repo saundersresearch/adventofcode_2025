@@ -172,3 +172,4 @@ uv.lock
 *.mp4
 .vscode/settings.json
 code/inputs
+.vscode
