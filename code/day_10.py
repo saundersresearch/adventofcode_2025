@@ -1,5 +1,7 @@
 import heapq
 import math
+from scipy.optimize import linprog
+import numpy as np
 
 with open("inputs/day_10.txt") as f:
     lines = f.readlines()
@@ -8,7 +10,7 @@ with open("inputs/day_10.txt") as f:
 print("\nPart 1")
 print("======")
 
-min_button_pushes = 0
+total_button_pushes = 0
 for line in lines:
     line = line.strip().split(" ")
 
@@ -53,5 +55,53 @@ for line in lines:
                 dist[v] = alt
                 heapq.heappush(heap, (alt, v))
 
-    min_button_pushes += dist[goal]
-print(f'Number of total button pushes: {min_button_pushes}')
+    total_button_pushes += dist[goal]
+print(f'Number of total button pushes: {total_button_pushes}')
+
+### Part 2
+print("\nPart 2")
+print("======")
+
+total_button_pushes = 0
+for line in lines:
+    line = line.strip().split(" ")
+
+    # Get goal
+    goal_list = line[-1][1:-1]
+    goal_list = goal_list.split(',')
+    goal_list = [int(g) for g in goal_list]
+
+    # This time, move_masks needs to describe which buttons are pushed
+    # (need to reverse order)
+    n_lights = len(goal_list)
+    moves = line[1:-1]
+    moves = [
+        move[1:-1].split(',') 
+        for move in moves
+    ]
+    move_masks = []
+    for move in moves:
+        move = [int(m) for m in move]
+        mask = 0
+        for m in move:
+            mask |= (1 << m)
+        move_masks.append([int(d) for d in f'{mask:0{n_lights}b}'][::-1])
+
+    # Equivalent to solving the following integer programming problem:
+    # min c @ x s.t. A_eq @ x = b_eq
+    # If c is ones, c @ x is the total # of button pushes
+    # Then set up so A_eq @ x produces total number
+    c = np.array([1]*len(move_masks))
+    A_eq = np.array(move_masks).T
+    b_eq = np.array(goal_list)
+
+    
+    res = linprog(
+        c=c,
+        A_eq=A_eq,
+        b_eq=b_eq,
+        integrality=1,
+    )
+    total_button_pushes += int(round(sum(res.x)))
+
+print(f'Number of total button pushes: {total_button_pushes}')
