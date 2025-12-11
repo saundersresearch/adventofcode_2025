@@ -8,7 +8,12 @@ version = "0.1.0"
 description = "Advent of Code visualization library"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "matplotlib>=3.10.8",
+    "networkx>=3.6.1",
+    "scipy>=1.16.3",
+    "tqdm>=4.67.1",
+]
 authors = [
     {name = "Adam Saunders", email = "adam.m.saunders@vanderbilt.edu"}
 ]
@@ -21,6 +26,3 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/saundersresearch/adventofcode_2025"
-
-[tool.uv.workspace]
-members = ["code"]
